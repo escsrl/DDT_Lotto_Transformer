@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DDT Lotto Transformer — ESC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --ink: #1a1814;
+      --ink-soft: #3a3530;
+      --ink-muted: #6b6558;
+      --paper: #f7f3ea;
+      --paper-warm: #efe9dc;
+      --paper-darker: #e6dfcd;
+      --line: #d9d1bc;
+      --line-soft: #e8e1ce;
+      --accent: #6b7a3b;
+      --accent-dark: #4a5628;
+      --brass: #b08936;
+      --danger: #a84030;
+      --font-serif: 'Fraunces', Georgia, serif;
+      --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+      --radius: 3px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── header ── */
+    header {
+      border-bottom: 2px solid var(--brass);
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-mark {
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+
+    .brand-sub {
+      font-size: 11.5px;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      font-weight: 500;
+    }
+
+    /* ── hero ── */
+    .hero {
+      max-width: 720px;
+      margin: 64px auto 0;
+      padding: 0 40px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 500;
+      line-height: 1.2;
+      margin-bottom: 18px;
+      color: var(--ink);
+    }
+
+    .hero p {
+      color: var(--ink-soft);
+      font-size: 16px;
+      max-width: 560px;
+      margin: 0 auto 32px;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--font-sans);
+      font-weight: 500;
+      font-size: 15px;
+      padding: 14px 28px;
+      border-radius: var(--radius);
+      text-decoration: none;
+      border: 1.5px solid var(--ink);
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .download-btn:hover {
+      background: var(--ink-soft);
+      border-color: var(--ink-soft);
+    }
+
+    .download-btn svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    .dl-meta {
+      margin-top: 12px;
+      font-size: 12.5px;
+      color: var(--ink-muted);
+    }
+
+    .dl-meta code {
+      font-family: var(--font-mono);
+      background: var(--paper-warm);
+      padding: 1px 5px;
+      border-radius: var(--radius);
+      font-size: 0.92em;
+    }
+
+    /* ── divider ── */
+    .divider {
+      max-width: 720px;
+      margin: 52px auto;
+      padding: 0 40px;
+      border: none;
+      border-top: 1px solid var(--line);
+    }
+
+    /* ── features ── */
+    .features {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .feature {
+      background: var(--paper-warm);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+    }
+
+    .feature-icon {
+      font-size: 22px;
+      margin-bottom: 10px;
+      line-height: 1;
+    }
+
+    .feature h3 {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    .feature p {
+      font-size: 13.5px;
+      color: var(--ink-soft);
+      line-height: 1.5;
+    }
+
+    /* ── how it works ── */
+    .how {
+      max-width: 720px;
+      margin: 52px auto 0;
+      padding: 0 40px;
+    }
+
+    .how h2 {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 500;
+      margin-bottom: 20px;
+      color: var(--ink);
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--line-soft);
+      background: var(--paper);
+    }
+
+    .step:last-child { border-bottom: none; }
+    .step:nth-child(even) { background: var(--paper-warm); }
+
+    .step-num {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--brass);
+      min-width: 28px;
+      line-height: 1.3;
+    }
+
+    .step-body strong {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 3px;
+    }
+
+    .step-body p {
+      font-size: 13.5px;
+      color: var(--ink-soft);
+    }
+
+    /* ── rules table ── */
+    .rules-section {
+      max-width: 720px;
+      margin: 52px auto 0;
+      padding: 0 40px;
+    }
+
+    .rules-section h2 {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 500;
+      margin-bottom: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    th {
+      text-align: left;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink-muted);
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--line);
+      background: var(--paper-warm);
+      font-weight: 500;
+    }
+
+    td {
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--line-soft);
+      vertical-align: top;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    code {
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+      background: var(--paper-warm);
+      padding: 1px 5px;
+      border-radius: var(--radius);
+    }
+
+    /* ── local-only badge ── */
+    .local-note {
+      max-width: 720px;
+      margin: 40px auto 0;
+      padding: 0 40px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--paper-warm);
+      border: 1px solid var(--brass);
+      border-radius: var(--radius);
+      padding: 10px 16px;
+      font-size: 13.5px;
+      color: var(--accent-dark);
+      font-weight: 500;
+    }
+
+    /* ── footer ── */
+    footer {
+      max-width: 720px;
+      margin: 64px auto 0;
+      padding: 24px 40px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-logo {
+      height: 26px;
+      opacity: 0.6;
+    }
+
+    footer p {
+      font-size: 12px;
+      color: var(--ink-muted);
+    }
+
+    footer a {
+      color: var(--accent-dark);
+      text-decoration: none;
+    }
+
+    footer a:hover { text-decoration: underline; }
+
+    /* ── responsive ── */
+    @media (max-width: 560px) {
+      header { padding: 16px 20px; }
+      .hero, .features, .divider, .how, .rules-section, .local-note, footer {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+      .hero { margin-top: 40px; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <svg class="logo-mark" xmlns="http://www.w3.org/2000/svg" viewBox="9.6 23.2 962.9 976">
+      <path fill="#00131D" d="M731.6,586.1h1.6c22.6,0,38.8-12.7,46.4-24.5l2.1-3.2l28.6,21.8L808,583c-19,22.3-45.6,34.9-74.7,35.4h-1.8c-62.5,0-106.2-44.1-106.2-107.2c0-63.1,43.7-107.2,106.2-107.2h1.8c29.1,0.5,55.7,13,74.7,35.4l2.4,2.8L781.7,464l-2.1-3.1c-7.7-11.9-23.9-24.6-46.4-24.6h-1.7c-41.3,0-69,30.1-69,74.9C662.6,556,690.3,586.1,731.6,586.1 M498.5,618.4c-34.7,0-61.1-13.4-78.8-39.9l-1.9-2.8l29.8-20.4l1.9,3c8.2,12.7,23.3,27.9,48.9,27.9c21.3,0,42.9-9.1,42.9-29.4c0-16.4-12.8-22.8-34.8-28.2l-26.9-6.3c-44.1-11-53.3-36.1-53.3-55.2c0-43.5,38.4-62.9,76.4-62.9c32.6,0,57.1,13.3,68.9,37.3l1.4,2.8l-30.6,20.2l-1.8-3.4c-8.6-16.4-21.9-24.7-39.5-24.7c-13.9,0-37.4,5.5-37.4,26c0,14.8,8.8,21.5,36.1,27.8l28.3,6.8c30.8,7.1,50.7,29.6,50.7,57.3C578.7,601.6,535.5,618.4,498.5,618.4 M373.9,522.3h-164c4.9,37.2,33.1,63.8,68.6,63.8c29.7,0,50.6-16.8,60.3-32.5l2.1-3.4l27.2,22.4l-2.1,2.7c-22.4,28.6-51.9,43.1-87.5,43.1c-60.1,0-105.5-46.1-105.5-107.2c0-61.1,44.3-107.2,103-107.2c57.7,0.4,97.9,42.4,97.9,102.1V522.3z M165.7,33.2L19.6,192.5v664h132.8v132.7h663.9l146.2-159.3V33.2H165.7z"/>
+      <path fill="#00131D" d="M276,436.3c-32.5,0-63.2,26.9-65.5,56.2h126C335,457.7,312.2,436.3,276,436.3"/>
+    </svg>
+    <div class="brand">
+      <span class="brand-name">DDT Lotto Transformer</span>
+      <span class="brand-sub">ESC enterprise software consulting · Treviglio</span>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Trasforma i lotti dei DDT in un click</h1>
+    <p>
+      Legge i PDF di Documento di Trasporto generati da Sistema Golden,
+      ricompone i valori di lotto e le sigle ISO secondo le regole dichiarate
+      per articolo, e produce un PDF identico nel layout. Tutto sul tuo computer.
+    </p>
+    <a class="download-btn" href="https://github.com/escsrl/esc-ddt-lotto-releases/releases/latest/download/ddt-lotto-transformer-setup.exe">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Scarica per Windows
+    </a>
+    <p class="dl-meta">
+      Windows 10/11 · x64 &nbsp;·&nbsp;
+      versione più recente su
+      <a href="https://github.com/escsrl/esc-ddt-lotto-releases/releases" style="color:var(--accent-dark)">GitHub Releases</a>
+    </p>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- FEATURES -->
+  <div class="features">
+    <div class="feature">
+      <div class="feature-icon">📄</div>
+      <h3>PDF identico</h3>
+      <p>Il documento prodotto mantiene esattamente il layout originale. Il PDF di input resta intatto.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">⚙️</div>
+      <h3>Regole per articolo</h3>
+      <p>Tre modalità di lotto (D, T, L) configurabili per codice articolo, con etichetta UE/NON UE.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">🔒</div>
+      <h3>Elaborazione locale</h3>
+      <p>Nessun dato inviato in rete. Il motore Python gira interamente sul tuo computer.</p>
+    </div>
+    <div class="feature">
+      <div class="feature-icon">👁</div>
+      <h3>Anteprima</h3>
+      <p>Prima di generare il PDF puoi verificare i lotti ricomposti e gli articoli senza regola.</p>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section class="how">
+    <h2>Come funziona</h2>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">1</span>
+        <div class="step-body">
+          <strong>Configura le regole</strong>
+          <p>Nella tab <em>Regole</em> inserisci, per ogni codice articolo, la regola del lotto e l'etichetta UE. I nuovi articoli trovati nei DDT possono essere aggiunti automaticamente.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">2</span>
+        <div class="step-body">
+          <strong>Carica il DDT</strong>
+          <p>Trascina il PDF nella finestra oppure clicca per sceglierlo. L'anteprima mostra subito i lotti ricomposti e segnala gli articoli non gestiti.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">3</span>
+        <div class="step-body">
+          <strong>Genera il PDF</strong>
+          <p>Con un click produci il PDF trasformato nella cartella di destinazione. Puoi aprirlo direttamente dall'app.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RULES TABLE -->
+  <section class="rules-section">
+    <h2>Regole del lotto</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Regola</th>
+          <th>Significato</th>
+          <th>Esempio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>D</code></td>
+          <td>Data documento in formato <code>AAMMGG</code></td>
+          <td><code>13/06/26</code> → <code>260613</code></td>
+        </tr>
+        <tr>
+          <td><code>T</code></td>
+          <td>Data documento in formato <code>GG/MM/AAAA</code></td>
+          <td><code>13/06/26</code> → <code>13/06/2026</code></td>
+        </tr>
+        <tr>
+          <td><code>L</code></td>
+          <td>Ultimi 5 caratteri del lotto originale</td>
+          <td><code>.A260038348</code> → <code>38348</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- LOCAL NOTE -->
+  <div class="local-note">
+    <span class="badge">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+      Elaborazione esclusivamente locale — nessun dato trasmesso in rete
+    </span>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <svg class="footer-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2834.6 1016.1">
+      <path fill="#00131D" d="M731.6,586.1h1.6c22.6,0,38.8-12.7,46.4-24.5l2.1-3.2l28.6,21.8L808,583c-19,22.3-45.6,34.9-74.7,35.4h-1.8c-62.5,0-106.2-44.1-106.2-107.2c0-63.1,43.7-107.2,106.2-107.2h1.8c29.1,0.5,55.7,13,74.7,35.4l2.4,2.8L781.7,464l-2.1-3.1c-7.7-11.9-23.9-24.6-46.4-24.6h-1.7c-41.3,0-69,30.1-69,74.9C662.6,556,690.3,586.1,731.6,586.1 M498.5,618.4c-34.7,0-61.1-13.4-78.8-39.9l-1.9-2.8l29.8-20.4l1.9,3c8.2,12.7,23.3,27.9,48.9,27.9c21.3,0,42.9-9.1,42.9-29.4c0-16.4-12.8-22.8-34.8-28.2l-26.9-6.3c-44.1-11-53.3-36.1-53.3-55.2c0-43.5,38.4-62.9,76.4-62.9c32.6,0,57.1,13.3,68.9,37.3l1.4,2.8l-30.6,20.2l-1.8-3.4c-8.6-16.4-21.9-24.7-39.5-24.7c-13.9,0-37.4,5.5-37.4,26c0,14.8,8.8,21.5,36.1,27.8l28.3,6.8c30.8,7.1,50.7,29.6,50.7,57.3C578.7,601.6,535.5,618.4,498.5,618.4 M373.9,522.3h-164c4.9,37.2,33.1,63.8,68.6,63.8c29.7,0,50.6-16.8,60.3-32.5l2.1-3.4l27.2,22.4l-2.1,2.7c-22.4,28.6-51.9,43.1-87.5,43.1c-60.1,0-105.5-46.1-105.5-107.2c0-61.1,44.3-107.2,103-107.2c57.7,0.4,97.9,42.4,97.9,102.1V522.3z M165.7,33.2L19.6,192.5v664h132.8v132.7h663.9l146.2-159.3V33.2H165.7z"/>
+      <path fill="#00131D" d="M276,436.3c-32.5,0-63.2,26.9-65.5,56.2h126C335,457.7,312.2,436.3,276,436.3"/>
+      <g>
+        <path fill="#00131D" d="M1147.9,72.4h106.3v20.9h-83.9v49h78.1v21h-78.1v52.8h88.1V237h-110.4V72.4z"/>
+        <path fill="#00131D" d="M1313.3,72.4h29.2l90.7,135.3h0.5V72.4h22.3V237h-28.3L1336,101.7h-0.5V237h-22.3V72.4z"/>
+        <path fill="#00131D" d="M1556,93.3h-53V72.4h128.4v20.9h-53V237H1556V93.3z"/>
+        <path fill="#00131D" d="M1678.3,72.4h106.3v20.9h-83.9v49h78.1v21h-78.1v52.8h88.1V237h-110.4V72.4z"/>
+        <path fill="#00131D" d="M1843.6,72.4h58c42,0,52.8,25.3,52.8,46.1c0,20.9-15.6,40.7-40.5,43.5l46.8,75.1h-28l-41.9-72.5H1866V237h-22.3V72.4z M1866,144.9h29.3c17.7,0,35.4-4.2,35.4-26.5c0-22.3-17.7-26.5-35.4-26.5H1866V144.9z"/>
+        <path fill="#00131D" d="M2009,72.4h57.9c42,0,52.8,25.3,52.8,46.1c0,20.7-10.7,46-52.8,46h-35.5V237H2009V72.4z M2031.4,144.9h29.2c17.7,0,35.3-4.2,35.3-26.5c0-22.3-17.7-26.5-35.3-26.5h-29.2V144.9z"/>
+        <path fill="#00131D" d="M2335.6,72.4h22.2V237h-22.2V72.4z"/>
+        <path fill="#00131D" d="M2576,72.4h106.3v20.9h-83.9v49h78.1v21h-78.1v52.8h88.1V237H2576V72.4z"/>
+      </g>
+    </svg>
+    <p>
+      Software proprietario © <span id="yr"></span> ESC enterprise software consulting S.r.l. ·
+      <a href="https://github.com/escsrl/esc-ddt-lotto-releases/releases">Releases</a>
+    </p>
+  </footer>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
